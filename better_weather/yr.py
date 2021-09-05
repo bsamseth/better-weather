@@ -97,11 +97,6 @@ class Timeseries(BaseModel):
     next_6_hours: Optional[Forecast]
     next_12_hours: Optional[Forecast]
 
-    # @validator("time")
-    # def timezone_aware(cls, v: datetime):
-    #     """Make the timestamp aware of its timezone (UTC)."""
-    #     return pytz.utc.localize(v)
-
 
 class ForecastResponse(BaseModel):
     location: Location
