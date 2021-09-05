@@ -42,3 +42,10 @@ repos:
         entry: poetry run flake8 --ignore=W503
         types: [python]
 
+      - id: mypy
+        name: mypy
+        stages: [commit]
+        language: system
+        entry: poetry run mypy --strict
+        types: [python]
+

@@ -6,7 +6,7 @@ from better_weather.yr import Location, get_forecast
 OSLO = Location(name="Oslo (Blindern)", lat=59.9423, lon=10.72, altitude=94)
 
 
-def test_yr_get_forecast():
+def test_yr_get_forecast() -> None:
     """
     Acquire forecast for OSLO.
 

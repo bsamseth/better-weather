@@ -15,7 +15,7 @@ class Location(BaseModel):
     altitude: int
 
     @validator("lat", "lon")
-    def no_more_than_four_decimals(cls, v: float):
+    def no_more_than_four_decimals(cls, v: float) -> float:
         """
         Ensure lat/lon has less than 5 decimals.
 
@@ -114,7 +114,7 @@ class ForecastResponse(BaseModel):
     timeseries: list[Timeseries]
 
     @validator("request_timestamp", "expires_at")
-    def timezone_aware(cls, v: datetime):
+    def timezone_aware(cls, v: datetime) -> datetime:
         """Make the timestamp aware of its timezone (UTC)."""
         return v.replace(tzinfo=ZoneInfo("UTC"))
 
