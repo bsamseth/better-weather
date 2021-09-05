@@ -39,6 +39,6 @@ repos:
         name: flake8
         stages: [commit]
         language: system
-        entry: poetry run flake8
+        entry: poetry run flake8 --ignore=W503
         types: [python]
 
