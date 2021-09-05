@@ -46,6 +46,7 @@ repos:
         name: mypy
         stages: [commit]
         language: system
-        entry: poetry run mypy --strict
+        pass_filenames: false
+        entry: poetry run mypy --strict better_weather tests
         types: [python]
 
