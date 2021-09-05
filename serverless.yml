@@ -1,0 +1,38 @@
+service: better-weather-data-collector
+frameworkVersion: '2'
+provider:
+  name: aws
+  runtime: python3.9
+  lambdaHashingVersion: 20201221
+
+  stage: dev
+  region: eu-west-1
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 's3:PutObject'
+          Resource:
+            Fn::Join:
+              - ''
+              - - 'arn:aws:s3:::'
+                - "bsamseth-better-weather/*"
+
+functions:
+  data-collector:
+    handler: better_weather.handler.handler
+    description: Collect forecast data from yr.no
+    memorySize: 128
+    events:
+     - schedule: rate(30 minutes)
+
+resources:
+  Resources:
+    NewResource:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: bsamseth-better-weather
+
+plugins:
+  - serverless-python-requirements
