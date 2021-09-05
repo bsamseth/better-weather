@@ -1,6 +1,5 @@
 from datetime import datetime
-
-import pytz
+from zoneinfo import ZoneInfo
 
 from better_weather.yr import Location, get_forecast
 
@@ -20,7 +19,7 @@ def test_yr_get_forecast():
     assert (
         forecast.updated_at
         < forecast.request_timestamp
-        <= pytz.utc.localize(datetime.utcnow())
+        <= datetime.utcnow().replace(tzinfo=ZoneInfo("UTC"))
         < forecast.expires_at
     )
     assert forecast.timeseries
