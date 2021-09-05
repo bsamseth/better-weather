@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
+import pytz
 import requests
 from pydantic import BaseModel, Field, validator
 
@@ -96,14 +97,26 @@ class Timeseries(BaseModel):
     next_6_hours: Optional[Forecast]
     next_12_hours: Optional[Forecast]
 
+    # @validator("time")
+    # def timezone_aware(cls, v: datetime):
+    #     """Make the timestamp aware of its timezone (UTC)."""
+    #     return pytz.utc.localize(v)
+
 
 class ForecastResponse(BaseModel):
     location: Location
-    request_timestamp: datetime = Field(default_factory=datetime.utcnow)
+    request_timestamp: datetime = Field(
+        default_factory=lambda: pytz.utc.localize(datetime.utcnow())
+    )
     updated_at: datetime
     expires_at: datetime
     units: Units
     timeseries: list[Timeseries]
+
+    @validator("request_timestamp", "expires_at")
+    def timezone_aware(cls, v: datetime):
+        """Make the timestamp aware of its timezone (UTC)."""
+        return pytz.utc.localize(v)
 
 
 def get_forecast(location: Location) -> ForecastResponse:
