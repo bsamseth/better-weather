@@ -8,6 +8,7 @@ authors = ["Bendik Samseth <b.samseth@gmail.com>"]
 python = "^3.9"
 requests = "^2.25.1"
 pydantic = "^1.8.2"
+boto3 = "^1.18.36"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.910"
